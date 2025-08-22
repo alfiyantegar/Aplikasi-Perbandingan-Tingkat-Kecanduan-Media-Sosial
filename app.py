@@ -148,18 +148,23 @@ def latih_sistem_dan_evaluasi(data):
 # -----------------------------
 # Halaman Utama
 # -----------------------------
-st.title("🌟 Cek Risiko Kecanduan Media Sosial")
+st.title("📊 Aplikasi Perbandingan Metode Prediksi Kecanduan Media Sosial")
+
 st.markdown("""
-Selamat datang di aplikasi **Cek Kecanduan Medsos**!  
-Aplikasi ini membantu kamu tahu seberapa besar risiko seseorang kecanduan media sosial, seperti Instagram, TikTok, atau lainnya, berdasarkan kebiasaan sehari-hari.  
+Selamat datang di aplikasi **Perbandingan Metode Random Forest dan Regresi Logistik untuk Prediksi Tingkat Kecanduan Media Sosial**!  
 
-**Apa yang bisa kamu lakukan?**  
-- Lihat contoh data yang digunakan.  
-- Masukkan data untuk memprediksi risiko kecanduan.  
-- Cek riwayat prediksi sebelumnya.  
-- Lihat performa sistem prediksi dan faktor yang paling memengaruhi hasil di tab Analisis.  
+Aplikasi ini berfokus pada **analisis dataset terbaru** agar penelitian bisa terus diperbarui dari tahun ke tahun.  
+Pengguna dapat mengunggah dataset baru, kemudian sistem akan melatih ulang model **Random Forest** dan **Regresi Logistik** untuk membandingkan performanya.  
 
-Pilih salah satu tab di bawah ini untuk mulai!
+### Fitur Utama
+- 📂 **Dataset Baru** → Unggah dataset, lihat struktur data, dan latih ulang model.  
+- 📈 **Analisis Model** → Bandingkan akurasi, error, dan faktor yang paling memengaruhi hasil prediksi.  
+
+### Fitur Tambahan
+- 🔍 **Prediksi** → Uji coba prediksi dengan input manual atau CSV kecil.  
+- 📜 **Riwayat** → Simpan dan lihat kembali hasil prediksi sebelumnya.  
+
+👉 Silakan mulai dengan mengunggah dataset di tab **Dataset Baru**.
 """)
 
 tab_data, tab_prediksi, tab_riwayat, tab_analisis = st.tabs(["📊 Lihat Data", "🔍 Prediksi", "📜 Riwayat", "📈 Analisis Performa Model"])
@@ -169,7 +174,7 @@ tab_data, tab_prediksi, tab_riwayat, tab_analisis = st.tabs(["📊 Lihat Data", 
 # -----------------------------
 with tab_data:
     st.subheader("📊 Lihat Data")
-    st.info("Di sini kamu bisa melihat contoh data yang digunakan atau mengunggah data baru dalam bentuk file CSV.")
+    st.info("Di sini kamu bisa melihat contoh data yang digunakan atau mengunggah data baru dalam bentuk file CSV untuk dilatih.")
 
     # Cek apakah data sudah ada
     if "data" not in st.session_state:
