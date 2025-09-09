@@ -71,14 +71,12 @@ def lihat_riwayat(jumlah=10):
 # Melatih Sistem dan Hitung Metrik
 # -----------------------------
 def latih_sistem_dan_evaluasi(data):
-    X = data.drop(columns=["Student_ID", "Addicted_Score"], errors="ignore")  # Data yang digunakan
-    y = data["Addicted_Score"]  # Hasil yang diprediksi
+    X = data.drop(columns=["Student_ID", "Addicted_Score"], errors="ignore")
+    y = data["Addicted_Score"]
 
-    # Pisahkan data angka dan teks
     kolom_angka = X.select_dtypes(include=["int64", "float64"]).columns.tolist()
     kolom_teks = X.select_dtypes(include=["object"]).columns.tolist()
 
-    # Siapkan data untuk sistem
     pengolah_data = ColumnTransformer(
         transformers=[
             ("angka", StandardScaler(), kolom_angka),
@@ -86,7 +84,6 @@ def latih_sistem_dan_evaluasi(data):
         ]
     )
 
-    # Buat dua sistem prediksi
     sistem_rf = Pipeline([
         ("pengolah", pengolah_data),
         ("model", RandomForestRegressor(n_estimators=100, random_state=42))
@@ -97,28 +94,21 @@ def latih_sistem_dan_evaluasi(data):
         ("model", LogisticRegression(max_iter=1000))
     ])
 
-    # Bagi data untuk latihan dan uji
     X_latih, X_uji, y_latih, y_uji = train_test_split(X, y, test_size=0.2, random_state=42)
-    
-    n_total = len(X)
-    n_train = len(X_latih)
-    n_test  = len(X_uji)
-    
+
+    # info jumlah data
     st.session_state.split_info = {
-    "Total Data": n_total,
-    "Data Latih (80%)": n_train,
-    "Data Uji (20%)": n_test
-}
-    # Latih sistem
+        "Total Data": len(X),
+        "Data Latih (80%)": len(X_latih),
+        "Data Uji (20%)": len(X_uji)
+    }
+
     sistem_rf.fit(X_latih, y_latih)
     sistem_lr.fit(X_latih, y_latih)
 
-    # Prediksi pada data uji
     y_pred_rf = sistem_rf.predict(X_uji)
     y_pred_lr = sistem_lr.predict(X_uji)
 
-    # Hitung metrik evaluasi
-        # Hitung metrik evaluasi
     metrik_rf = {
         "MSE": round(mean_squared_error(y_uji, y_pred_rf), 2),
         "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_rf)), 2),
@@ -133,20 +123,16 @@ def latih_sistem_dan_evaluasi(data):
         "R²": round(r2_score(y_uji, y_pred_lr), 2)
     }
 
-
-
-    # Ekstrak fitur terpenting dari Random Forest
     feature_names = []
     if kolom_angka:
         feature_names.extend(kolom_angka)
     if kolom_teks:
         ohe = sistem_rf.named_steps["pengolah"].named_transformers_["teks"]
-        ohe_feature_names = ohe.get_feature_names_out(kolom_teks)
-        feature_names.extend(ohe_feature_names)
-    
+        feature_names.extend(ohe.get_feature_names_out(kolom_teks))
+
     importances = sistem_rf.named_steps["model"].feature_importances_
     feature_importance = sorted(zip(feature_names, importances), key=lambda x: x[1], reverse=True)
-    
+
     return sistem_rf, sistem_lr, metrik_rf, metrik_lr, feature_importance
 
 # -----------------------------
