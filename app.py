@@ -119,18 +119,19 @@ def latih_sistem_dan_evaluasi(data):
 
     # Hitung metrik evaluasi
     metrik_rf = {
-    "MSE": round(mean_squared_error(y_uji, y_pred_rf), 2),
-    "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_rf)), 2),
-    "MAE": round(mean_absolute_error(y_uji, y_pred_rf), 2),
-    "R²": round(r2_score(y_uji, y_pred_rf), 2)
-}
+        "MSE": round(mean_squared_error(y_uji, y_pred_rf), 2),
+        "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_rf)), 2),
+        "MAE": round(mean_absolute_error(y_uji, y_pred_rf), 2),
+        "R²": round(r2_score(y_uji, y_pred_rf), 2)
+    }
 
-metrik_lr = {
-    "MSE": round(mean_squared_error(y_uji, y_pred_lr), 2),
-    "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_lr)), 2),
-    "MAE": round(mean_absolute_error(y_uji, y_pred_lr), 2),
-    "R²": round(r2_score(y_uji, y_pred_lr), 2)
-}
+    metrik_lr = {
+        "MSE": round(mean_squared_error(y_uji, y_pred_lr), 2),
+        "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_lr)), 2),
+        "MAE": round(mean_absolute_error(y_uji, y_pred_lr), 2),
+        "R²": round(r2_score(y_uji, y_pred_lr), 2)
+    }
+
 
     # Ekstrak fitur terpenting dari Random Forest
     feature_names = []
@@ -346,10 +347,11 @@ with tab_riwayat:
 with tab_analisis:
     st.subheader("📈 Analisis Performa Model")
     st.info("Di sini kamu bisa melihat seberapa baik sistem prediksi bekerja dan faktor apa yang paling memengaruhi hasil prediksi.")
+
     if "split_info" in st.session_state:
         st.write("### 📦 Ringkasan Pembagian Data (80% : 20%)")
-    split_df = pd.DataFrame(list(st.session_state.split_info.items()), columns=["Keterangan", "Jumlah Baris"])
-    st.dataframe(split_df, use_container_width=True)
+        split_df = pd.DataFrame(list(st.session_state.split_info.items()), columns=["Keterangan", "Jumlah Baris"])
+        st.dataframe(split_df, use_container_width=True)
 
     if st.session_state.data is not None and "metrik_rf" in st.session_state:
         
