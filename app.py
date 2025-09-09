@@ -118,6 +118,7 @@ def latih_sistem_dan_evaluasi(data):
     y_pred_lr = sistem_lr.predict(X_uji)
 
     # Hitung metrik evaluasi
+        # Hitung metrik evaluasi
     metrik_rf = {
         "MSE": round(mean_squared_error(y_uji, y_pred_rf), 2),
         "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_rf)), 2),
@@ -131,6 +132,7 @@ def latih_sistem_dan_evaluasi(data):
         "MAE": round(mean_absolute_error(y_uji, y_pred_lr), 2),
         "R²": round(r2_score(y_uji, y_pred_lr), 2)
     }
+
 
 
     # Ekstrak fitur terpenting dari Random Forest
