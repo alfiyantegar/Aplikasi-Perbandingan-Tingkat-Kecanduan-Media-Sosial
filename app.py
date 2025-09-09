@@ -119,17 +119,18 @@ def latih_sistem_dan_evaluasi(data):
 
     # Hitung metrik evaluasi
     metrik_rf = {
-        "MSE": round(mean_squared_error(y_uji, y_pred_rf), 2),
-        "RMSE": round(mean_squared_error(y_uji, y_pred_rf, squared=False), 2),
-        "MAE": round(mean_absolute_error(y_uji, y_pred_rf), 2),
-        "R²": round(r2_score(y_uji, y_pred_rf), 2)
-    }
-    metrik_lr = {
-        "MSE": round(mean_squared_error(y_uji, y_pred_lr), 2),
-        "RMSE": round(mean_squared_error(y_uji, y_pred_lr, squared=False), 2),
-        "MAE": round(mean_absolute_error(y_uji, y_pred_lr), 2),
-        "R²": round(r2_score(y_uji, y_pred_lr), 2)
-    }
+    "MSE": round(mean_squared_error(y_uji, y_pred_rf), 2),
+    "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_rf)), 2),
+    "MAE": round(mean_absolute_error(y_uji, y_pred_rf), 2),
+    "R²": round(r2_score(y_uji, y_pred_rf), 2)
+}
+
+metrik_lr = {
+    "MSE": round(mean_squared_error(y_uji, y_pred_lr), 2),
+    "RMSE": round(np.sqrt(mean_squared_error(y_uji, y_pred_lr)), 2),
+    "MAE": round(mean_absolute_error(y_uji, y_pred_lr), 2),
+    "R²": round(r2_score(y_uji, y_pred_lr), 2)
+}
 
     # Ekstrak fitur terpenting dari Random Forest
     feature_names = []
